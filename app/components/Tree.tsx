@@ -7,20 +7,21 @@ interface JSONTree {
 interface TreeProps {
     title: string;
     value: JSONTree;
-    onChange: boolean;
+    onChange: () => void;
     editable: boolean;
 }
 
 const Tree: React.FC<TreeProps> = ({ title, value, onChange, editable }) => {
-    return (
+      
+      return (
         <div>
             <h2>{title}</h2>
+            <h3>{editable ? 'Modo Edición' : 'Modo Lectura'}</h3>
+            { editable && <button onClick={onChange}>Agregar Nodo</button> }
             <ul>
                 <li>Nombre: {value.name}</li>
                 <li>Edad: {value.age}</li>
                 <li>Ciudad: {value.city}</li>
-                <li>Editable es: {editable ? 'editable' : 'no editable'}</li>
-                <li>onChange es: {onChange ? 'onChange' : 'no onChange'}</li>
             </ul>
         </div>
     );

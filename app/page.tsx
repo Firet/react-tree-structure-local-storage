@@ -1,3 +1,4 @@
+'use client';
 import styles from "./page.module.css";
 import Tree from "./components/Tree";
 
@@ -9,9 +10,12 @@ const jsonTree = {
 };
 
 export default function Home() {
+
+  const handleClick = () => console.log('handleClick');
+  
   return (
     <div className={styles.page}>
-      <Tree title="Árbol Raíz" value={jsonTree} onChange={true} editable={false} />
+      <Tree title="Árbol Raíz" value={jsonTree} onChange={handleClick} editable={true} />
     </div>
   );
 }
