@@ -17,6 +17,11 @@ export default function Home() {
     setValue(favoriteNumber);
   };
 
+  let numberLocalStorage;
+  if (typeof window !== "undefined" && window.localStorage) {
+    numberLocalStorage = localStorage.getItem('favoriteNumber');
+  }
+
   return (
     <div>
       <label htmlFor="number">Your favorite number</label>
@@ -28,6 +33,8 @@ export default function Home() {
         />
         <input type="submit" value="Save" />
       </form>
+
+      <p> number in local storage: {numberLocalStorage}</p>
     </div>
   );
 }
