@@ -1,25 +1,33 @@
-'use client';
-import styles from "./page.module.css";
-import Tree from "./components/Tree";
-import useLocalStorage from './hooks/useLocalStorage';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 
-
-// TODO: Add type
-const jsonTree = {
-  name: 'Nao',
-  age: 34,
-  city: 'Belgrado'
-};
+import useLocalStorage from "./hooks/useLocalStorage";
+import { useState } from "react";
 
 export default function Home() {
-  const [name, setName] = useLocalStorage<string>({ key: 'userName', initialValue: '' });
-  const handleClick = () => console.log('handleClick');
-  
+  // Get the value from local storage if it exists
+  const [value, setValue] = useLocalStorage("favoriteNumber", "");
+
+  // Set the value received from the local storage to a local state
+  const [favoriteNumber, setFavoriteNumber] = useState(value);
+
+  // When user submits the form, save the favorite number to the local storage
+  const saveToLocalStorage = (e: any) => {
+    e.preventDefault();
+    setValue(favoriteNumber);
+  };
+
   return (
-    <div className={styles.page}>
-      <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-      <p>Hola, {name}!</p>
-      <Tree title="Árbol Raíz" value={jsonTree} onChange={handleClick} editable={true} />
+    <div>
+      <label htmlFor="number">Your favorite number</label>
+      <form onSubmit={saveToLocalStorage}>
+        <input
+          id="number"
+          value={favoriteNumber}
+          onChange={(e) => setFavoriteNumber(e.target.value)}
+        />
+        <input type="submit" value="Save" />
+      </form>
     </div>
   );
 }
